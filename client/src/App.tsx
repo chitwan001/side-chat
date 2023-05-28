@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Header from './components/Header';
 import Home from './pages/Home';
+import Dashboard from './components/Dashboard';
+import Inbox from './components/Inbox';
 
 function App() {
   const { token, getUserData, user } = useAuth();
@@ -28,19 +30,15 @@ function App() {
         </div>
       }
     >
-      <div className="grid relative bg-gray-100 dark:bg-gray-700 w-screen h-screen">
+      <div className="grid relative bg-gray-100 dark:bg-gray-700 w-screen h-screen max-h-screen overflow-y-scroll overflow-x-scroll">
         {!token ? (
           <Routes>
             <Route element={<Global />}>
-              <Route path="/login" element={<Home />} />
-              <Route
-                path="/signup"
-                element={
-                  // <SignupProvider>
-                  <Signup />
-                  // </SignupProvider>
-                }
-              />
+              <Route path="/login" element={<Home />}>
+                <Route path="inbox" element={<Inbox />} />
+                <Route path="dashboard" element={<Dashboard />} />
+              </Route>
+              <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<Redirect />} />
             </Route>
           </Routes>

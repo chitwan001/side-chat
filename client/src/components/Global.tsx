@@ -33,7 +33,7 @@ export default function Global(props: any) {
     }
   }, [isOnline]);
   return (
-    <div className="relative grid-rows-[auto_1fr] grid overflow-hidden">
+    <div className="relative grid-rows-[auto_1fr] grid">
       {isOffline ? (
         <Loading />
       ) : (
