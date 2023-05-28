@@ -26,13 +26,14 @@ AuthContext.displayName = 'AuthContext';
 
 function AuthProvider(props: AuthProp) {
   const { storedUser, setUser, token, getUserData } = useLocalStorage(
-    'sidechat-user',
-    null
+    'chat-user',
+    ''
   );
   // const navigate = useNavigate();
-  const logout = useCallback(() => {
-    setUser(null);
-  }, [setUser]);
+  // const logout = useCallback(() => {
+  //   // setUser(null);
+  // }, [setUser]);
+  const logout = () => {};
   return (
     <AuthContext.Provider
       value={{ logout, user: storedUser, setUser, token, getUserData }}

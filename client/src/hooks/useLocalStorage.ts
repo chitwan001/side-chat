@@ -35,6 +35,7 @@ export function useLocalStorage(key: string, initialValue: string | null) {
         }
     }
     const setUser = (value: string | null): void => {
+        console.log('Here is the user data');
         try {
             setLocalStorage(key, value)
             setToken(value)

@@ -10,14 +10,13 @@ import Signup from './pages/Signup';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Dashboard from './components/Dashboard';
-import Inbox from './components/Inbox';
+import Inbox from './components/Inbox/Inbox';
 
 function App() {
   const { token, getUserData, user } = useAuth();
   useEffect(() => {
     setAxiosDefault();
     if (token) {
-      console.log(token);
       setToken(token);
       getUserData();
     }
@@ -30,14 +29,11 @@ function App() {
         </div>
       }
     >
-      <div className="grid relative bg-gray-100 dark:bg-gray-700 w-screen h-screen max-h-screen overflow-y-scroll overflow-x-scroll">
+      <div className="grid relative bg-gray-100 dark:bg-gray-700 w-screen h-screen max-h-screen">
         {!token ? (
           <Routes>
             <Route element={<Global />}>
-              <Route path="/login" element={<Home />}>
-                <Route path="inbox" element={<Inbox />} />
-                <Route path="dashboard" element={<Dashboard />} />
-              </Route>
+              <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<Redirect />} />
             </Route>
@@ -47,6 +43,10 @@ function App() {
             <Route element={<Global />}>
               <Route path="/login" element={<Redirect />} />
               <Route path="/signup" element={<Redirect />} />
+              <Route path="/h" element={<Home />}>
+                <Route path="inbox" element={<Inbox />} />
+                <Route path="dashboard" element={<Dashboard />} />
+              </Route>
             </Route>
           </Routes>
         )}

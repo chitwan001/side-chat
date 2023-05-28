@@ -33,14 +33,15 @@ export default function Login() {
       setButtonLoading
     );
     if (response.success) {
-      if (setUser) {
-        if (response.data) {
-          setUser(response.data.body.token);
-          setToken(response.data.body.token);
-          setButtonLoading(false);
-        }
-        navigate('/h');
+      displaySuccessMessage();
+      // setUser('hellothere');
+      if (response.data) {
+        console.log(response);
+        setToken(response.data.body.token);
+        setUser(response.data.body.token);
+        setButtonLoading(false);
       }
+      // navigate('/');
     }
   };
   const onError = (errors: any, e: any) => {
@@ -48,7 +49,7 @@ export default function Login() {
     console.log(errors);
   };
   useEffect(() => {
-    addError({ data: { message: 'This is a login error' }, success: true });
+    // addError({ data: { message: 'This is a login error' }, success: true });
   }, []);
   return (
     <div className="grid place-self-center w-[400px]">

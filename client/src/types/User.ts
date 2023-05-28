@@ -1,3 +1,5 @@
+import { ActiveChat } from "./Objects";
+
 export interface userInterface {
     email: string,
     firstName: string,
@@ -6,7 +8,8 @@ export interface userInterface {
     stripe: string,
     backgroundColor: string,
     role: string,
-    id: string,
+    _id: string,
     preferredLanguage: string
+    activeChats: ActiveChat[]
 }
 export type userType = userInterface | null;

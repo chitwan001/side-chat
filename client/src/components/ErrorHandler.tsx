@@ -18,7 +18,7 @@ export default function ErrorHandler({
         ? error.map((data, i) => (
             <div
               key={i}
-              className={`grid place-self-center bottom-full animate-error z-10 opacity-100 absolute cursor-pointer group w-[300px] text-lg font-inter rounded-lg place-content-center border shadow-[rgba(0,0,0,0.16)_0px_3px_6px,_rgba(0,0,0,0.23)_0px_3px_6px] h-[60px] ${
+              className={`grid place-self-center bottom-full animate-error z-[100] opacity-100 absolute cursor-pointer group w-[300px] text-lg font-inter rounded-lg place-content-center border shadow-[rgba(0,0,0,0.16)_0px_3px_6px,_rgba(0,0,0,0.23)_0px_3px_6px] h-[60px] ${
                 data.success
                   ? 'bg-green-500 dark:bg-green-600 text-gray-100 dark:text-gray-100 dark:border-green-800 border-green-600'
                   : 'bg-red-500 text-gray-50 border-red-600'

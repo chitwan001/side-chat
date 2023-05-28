@@ -28,18 +28,18 @@ const generateNewAvatar = async () => {
 }
 const generateAndReturnAvatar = async (stripe: string, seed: string, backgroundColor: string) => {
     const avatar = await axiosExternal.get(`https://avatars.dicebear.com/api/${stripe}/${seed}.svg?background=%23${backgroundColor}`);
-    return avatar;
+    return avatar.data;
 }
 const getUserAvatar = () => {
-    return sessionStorage.getItem(window.btoa("reunir-user-avatar")) || "";
+    return sessionStorage.getItem(window.btoa("chat-user-avatar")) || "";
 }
 const setUserAvatar = async (stripe: string, seed: string, backgroundColor: string) => {
     const avtr = await axiosExternal.get(`https://avatars.dicebear.com/api/${stripe}/${seed}.svg?background=%23${backgroundColor}`)
-    sessionStorage.setItem(window.btoa("reunir-user-avatar"), avtr.data);
+    sessionStorage.setItem(window.btoa("chat-user-avatar"), avtr.data);
 }
 
 const clearSession = () => {
-    sessionStorage.removeItem(window.btoa("reunir-user-avatar"))
+    sessionStorage.removeItem(window.btoa("chat-user-avatar"))
 }
 
 export { generateNewAvatar, getUserAvatar, setUserAvatar, generateAndReturnAvatar, clearSession }
