@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 import { generateAndReturnAvatar } from '../utils';
+import { axiosExternal } from '../axiosDefault';
 export default function Avatar({
   className,
   userAvatar,
@@ -11,15 +12,13 @@ export default function Avatar({
   const [svg, setSvg] = useState('');
   useEffect(() => {
     async function getSvg() {
-      let svg = await generateAndReturnAvatar(
-        userAvatar.stripe,
-        userAvatar.seed,
-        userAvatar.backgroundColor
+      const avatar = await axiosExternal.get(
+        `https://avatars.dicebear.com/api/${userAvatar.stripe}/${userAvatar.seed}.svg?background=%23${userAvatar.backgroundColor}`
       );
-      setSvg(svg);
+      setSvg(avatar.data);
     }
     getSvg();
-  });
+  }, []);
   return svg === '' ? (
     <div className="place-content-center grid w-[50px] h-[50px] bg-slate-300 rounded-full">
       <svg

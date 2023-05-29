@@ -17,7 +17,6 @@ const authorize = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     const token = bearer.split(" ")[1]
-    console.log('token: ', token);
 
     jwt.verify(token, process.env.JWT_SECRET_KEY || '', async (err, decoded) => {
         if (err) {

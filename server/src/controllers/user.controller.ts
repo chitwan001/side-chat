@@ -28,6 +28,26 @@ const getDetailsById = async (req: Request, res: Response, next: NextFunction) =
     })
 }
 
+const getUserByName = async (req: Request, res: Response, next: NextFunction) => {
+    const { name, userId } = req.body
+    let user = await User.find({ email: name });
+    const findThisUser = (user: any) => {
+        return user._id === userId
+    }
+    // const delInd = user.findIndex(findThisUser)
+    // user.splice(delInd, 1)
+    return res.send({
+        status: httpStatus.OK,
+        success: true,
+        data: {
+            statusCode: httpStatus.OK,
+            body: [...user]
+        },
+        error: null
+    })
+
+}
+
 const createNewChat = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.body;
     const user = await User.findById(userId);
@@ -51,4 +71,4 @@ const createNewChat = async (req: Request, res: Response, next: NextFunction) =>
     })
 }
 
-export { getDetails, getDetailsById, createNewChat }
+export { getDetails, getDetailsById, createNewChat, getUserByName }

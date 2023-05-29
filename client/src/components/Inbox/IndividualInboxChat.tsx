@@ -14,7 +14,7 @@ export default function IndividualInboxChat({
   const getUser = (users: userType[]) => {
     let thisUser: userType = user;
     users.forEach((aUser) => {
-      if (aUser?._id === user?._id) {
+      if (aUser?._id !== user?._id) {
         thisUser = aUser;
       }
     });
@@ -22,16 +22,15 @@ export default function IndividualInboxChat({
   };
   const getTimeDifference = (chat: Chat) => {
     let sentTime = new Date(chat.sentTime);
-    let leftTime = new Date().getSeconds() - sentTime.getSeconds();
-    console.log(leftTime);
+    let leftTime = Math.ceil(new Date().getSeconds() - sentTime.getSeconds());
     if (leftTime < 10) {
       return 'Just a few seconds ago';
     } else if (60 > leftTime && leftTime > 10) {
       return leftTime + 's ago';
     } else if (leftTime < 3600) {
-      return leftTime / 60 + 'min ago';
+      return Math.ceil(leftTime / 60) + 'min ago';
     } else {
-      return leftTime / 3600 + 'hr ago';
+      return Math.ceil(leftTime / 3600) + 'hr ago';
     }
   };
   const [timeDifference, setTimeDifference] = useState(
@@ -70,7 +69,7 @@ export default function IndividualInboxChat({
         />
       </div>
       <div className="grid">
-        <a href="f" className="flex justify-between items-center">
+        <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">
             {chat.users.map((auser, id) =>
               auser?._id !== user?._id
@@ -79,7 +78,7 @@ export default function IndividualInboxChat({
             )}
           </h3>
           <p className="text-md text-gray-400">{timeDifference}</p>
-        </a>
+        </div>
         <div className="text-md italic">
           {chat.chats.length > 1 ? chat.chats[-1].body : chat.chats[0].body}
         </div>

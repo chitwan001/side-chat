@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { METHOD, ResponseType } from "../types";
 
-async function requestWrap<T>(method: METHOD, url: string, data: Object | {}, options: AxiosRequestConfig<any>, addError: (data: ResponseType<any>) => void): Promise<ResponseType<T>> {
+async function requestWrap<T>(method: METHOD, url: string, data: Object | {}, options: AxiosRequestConfig<any>): Promise<ResponseType<T>> {
     let response: ResponseType<T> = {
         success: false,
         data: null,
@@ -47,19 +47,23 @@ async function requestWrap<T>(method: METHOD, url: string, data: Object | {}, op
     }
     return response;
 }
-export async function makeRequest<T>(method: METHOD, url: string, data: Object | {}, options: AxiosRequestConfig<any> = {}, addError: (data: ResponseType<any>) => void, setLoading: any): Promise<{ response: ResponseType<T>, displaySuccessMessage: () => void }> {
-    setLoading(true);
-    const response = await requestWrap<T>(method, url, data, options, addError);
+export async function makeRequest<T>(method: METHOD, url: string, data: Object | {}, options: AxiosRequestConfig<any> = {}, addError: ((data: ResponseType<any>) => void) | null, setLoading: any): Promise<{ response: ResponseType<T>, displaySuccessMessage: () => void }> {
+    if (setLoading)
+        setLoading(true);
+    const response = await requestWrap<T>(method, url, data, options);
     if (response) {
         if (!response.success) {
-            addError(response);
+            if (addError)
+                addError(response);
         }
     }
-    setLoading(false);
+    if (setLoading)
+        setLoading(false);
     const displaySuccessMessage = () => {
         if (response) {
             if (response.success) {
-                addError(response)
+                if (addError)
+                    addError(response)
             }
         }
     }

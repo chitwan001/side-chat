@@ -26,8 +26,10 @@ const generateNewAvatar = async () => {
     const avatar = await axiosExternal.get(`https://avatars.dicebear.com/api/${stripe}/${seed}.svg?background=%23${randomColor}`);
     return { avatar: avatar.data, stripe, seed, randomColor };
 }
-const generateAndReturnAvatar = async (stripe: string, seed: string, backgroundColor: string) => {
+const generateAndReturnAvatar = async (stripe: string, seed: string, backgroundColor: string, set: any) => {
     const avatar = await axiosExternal.get(`https://avatars.dicebear.com/api/${stripe}/${seed}.svg?background=%23${backgroundColor}`);
+    set(avatar.data);
+
     return avatar.data;
 }
 const getUserAvatar = () => {
